@@ -14,13 +14,14 @@ Burp Suite Community Edition.
 Firefox
 
 # METHODOLOGY
-1- Intercepting the request
-	Burp Proxy was configured to intercept traffic between the browser and web application
-	Steps: 
+## 1- Intercepting the request
+Burp Proxy was configured to intercept traffic between the browser and web application
+		{ 
 		1- Configure browser proxy
 		2- Enable Burp Proxy Interception
 		3- Trigger the promotional action on the website
-		4- Capture the API request.
+		4- Capture the API request
+		}
 Example request structure and request body:
 http: 	
 	POST /api/promo/redeem HTTP/2
