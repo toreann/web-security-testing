@@ -17,29 +17,34 @@ Firefox
 ## 1- Intercepting the request
 Burp Proxy was configured to intercept traffic between the browser and web application
 		{ 
-		1- Configure browser proxy
-		2- Enable Burp Proxy Interception
-		3- Trigger the promotional action on the website
-		4- Capture the API request
+1- Configure browser proxy
+2- Enable Burp Proxy Interception
+3- Trigger the promotional action on the website
+4- Capture the API request
 		}
 Example request structure and request body:
-http: 	
-	POST /api/promo/redeem HTTP/2
-	Host: api.example.com
-	Content-Type: application/json
+http:
+	{ 	
+POST /api/promo/redeem HTTP/2
+Host: api.example.com
+Content-Type: application/json
+	}
 JSON:
 	{
-	"userId": 12345,
- 	"email": "user@example.com",
- 	"phone": "+1XXXXXXXXXX",
- 	"promoId": "PROMO2026"
+"userId": 12345,
+"email": "user@example.com",
+"phone": "+1XXXXXXXXXX",
+"promoId": "PROMO2026"
 	}
-2- Replay Testing
+
+## 2- Replay Testing
 The intercepted request was sent to Burp Repeater
-	Steps: 
-		1- Send Captured Request to Repeater
-		2- Resend the exact same request without modification
-		3- Perform controlled variations of user-related fields to determine duplicate promotion bypassing control
+Steps: 
+	{
+1- Send Captured Request to Repeater
+2- Resend the exact same request without modification
+3- Perform controlled variations of user-related fields to determine duplicate promotion bypassing control
+	}
 Example request body:
 JSON:
 	{
@@ -85,27 +90,35 @@ Result: All manipulations had a rejected request and returned the message "Promo
 
 # RISK ASSESSMENT
 -Finding
+-
 Promotion API replay attempt blocked by server-side duplicate detection
 The promotional redemption endpoint was tested for replay attack behavior by resending an intercepted HTTP request through Burp Suite Repeater.
 The server responded with a duplicate redemption error and prevented additional reward issuance.
 ---
 -Severity: Low
+-
 The application correctly prevents basic replay attacks by validating redemption state on the server side.
 ---
 -Impact
+-
 If this protection were absent, an attacker could potentially:
-	resend a captured request
-	generate multiple promotional rewards
-	abuse the promotion system
+	{
+resend a captured request
+generate multiple promotional rewards
+abuse the promotion system
+	}
 This could result in financial loss or promotion abuse.
 ---
--Recommendation
+-Recommendatio
+-
 Maintain server-side validation to ensure each promotion can only be redeemed once per eligible user.
 Additional defensive measures may include:
-	redemption state stored server-side
-	rate limiting on redemption endpoints
-	promotion usage logging
-	monitoring for abnormal request patterns
+	{
+redemption state stored server-side
+rate limiting on redemption endpoints
+promotion usage logging
+monitoring for abnormal request patterns
+	}
 ---
 -Testing Summary
 Test			Result
